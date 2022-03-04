@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard 2</title>
+  <title>Gamifikasi</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
   <style>
       body {
-        background-image: url(adminlte/dist/img/bgcontent.jpg); 
+        background-image: url(adminlte/dist/img/bgcontentcollege.jpg); 
         height: 100%  /* Center and scale the image nicely */
         background-position: center;
         background-repeat: no-repeat;
@@ -71,7 +71,7 @@
       <nav class="mt-2">
       </nav>
       <!-- /.sidebar-menu -->
-      <form action="../../index3.html" method="post">
+      <form action="" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -134,9 +134,5 @@
 <script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="adminlte/plugins/chart.js/Chart.min.js"></script>
-
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="adminlte/dist/js/pages/dashboard2.js"></script>
 </body>
 </html>
