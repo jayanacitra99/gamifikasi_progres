@@ -49,6 +49,7 @@
                         <th>Member ID</th>
                         <th>Name</th>
                         <th>Total Points</th>
+                        <th>Level</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -46,6 +46,7 @@
         <a href="{{ url('/dashboard')}}" class="nav-link">Home</a>
       </li>
     </ul>
+    
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
@@ -55,6 +56,7 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+  
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
