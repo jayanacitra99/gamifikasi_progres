@@ -16,7 +16,7 @@ class Instruktur
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role == 'ISNTRUKTUR'){
+        if(auth()->user()->role == 'INSTRUKTUR'){
             return $next($request);
         }
         return route('instruktur');

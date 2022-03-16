@@ -62,6 +62,13 @@
       <img src="adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Gamifikasi</span>
     </a>
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('formLogout').submit();" style="text-decoration: none; color:white"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		    <form id="formLogout" action="{{ route('logout') }}" method="POST">@csrf</form>
+      </li>
+    </ul>
 
     <!-- Sidebar -->
     <div class="sidebar">

@@ -24,7 +24,7 @@ Route::group(['middleware'=>'admin'], function() {
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 });
 Route::group(['middleware'=>'instruktur'], function() {
-    Route::get('/infrastruktur', [App\Http\Controllers\InstrukturController::class, 'index'])->name('instruktur');    
+    Route::get('/instruktur', [App\Http\Controllers\InstrukturController::class, 'index'])->name('instruktur');    
 });
 Route::group(['middleware'=>'member'], function() {
     Route::get('/member', [App\Http\Controllers\MemberController::class, 'index'])->name('member');
