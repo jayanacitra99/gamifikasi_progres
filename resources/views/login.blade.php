@@ -27,7 +27,7 @@
       }
 
       .mt-2 {
-          padding-top: 30vh;
+          padding-top: 20vh;
       }
 
       .burger i{
@@ -63,11 +63,6 @@
       <span class="brand-text font-weight-light">Gamifikasi</span>
     </a>
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('formLogout').submit();" style="text-decoration: none; color:white"><i class="fas fa-sign-out-alt"></i> Logout</a>
-		    <form id="formLogout" action="{{ route('logout') }}" method="POST">@csrf</form>
-      </li>
     </ul>
 
     <!-- Sidebar -->
@@ -76,23 +71,34 @@
       
       <!-- Sidebar Menu -->
       <nav class="mt-2">
+        @error('password')
+          <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+            {{ $message }}
+          </div>
+        @enderror
+        @error('email')
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+          {{ $message }}
+        </div>
+        @enderror
       </nav>
       <!-- /.sidebar-menu -->
       <form action="{{ route('login')}}" method="POST">
         @csrf
+    
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email" required>
+          <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
-          @error('email')
-            <span class="invalid-feedback" role="alert">
-              <p>{{ $message }}</p>
-            </span>
-          @enderror
         </div>
+
         <div class="input-group mb-3">
           <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
@@ -100,12 +106,8 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          @error('password')
-            <span class="invalid-feedback" role="alert">
-              <p>{{ $message }}</p>
-            </span>
-          @enderror
         </div>
+        
         <div>
             <input type="submit" name="submit" class="btn btn-primary btn-block" value="Sign In">
         </div>

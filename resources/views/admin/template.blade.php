@@ -13,6 +13,15 @@
   <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  {{-- <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="adminlte/plugins/toastr/toastr.min.css">
+  <script type="text/javascript">
+    function clickNotif(){
+      document.getElementById('notifSwal').click();
+    }
+  </script> --}}
   <style>
     .navbar-white {
       background-color: #a12520;
@@ -28,6 +37,18 @@
   </style>
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
+  {{-- @if(session('success'))
+		<div class="alert alert-success" id="notif" swalType="success" swalTitle="{{session('success')}}" style="display: none">{{session('success')}}</div>
+		<script>
+		window.addEventListener("load",clickNotif);
+		</script>	
+	@endif
+	@if(session('notif'))
+		<div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{session('notif')}}" style="display: none">{{session('notif')}}</div>
+		<script>
+		window.addEventListener("load",clickNotif);
+		</script>	
+	@endif --}}
 <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Preloader -->
@@ -50,7 +71,8 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('formLogout').submit();" style="text-decoration: none; color:white"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('formLogout').submit();" 
+        style="text-decoration: none; color:white"><i class="fas fa-sign-out-alt"></i> Logout</a>
 		    <form id="formLogout" action="{{ route('logout') }}" method="POST">@csrf</form>
       </li>
     </ul>
@@ -88,6 +110,14 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('register')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Register New Users
               </p>
             </a>
           </li>
@@ -167,9 +197,22 @@
 <script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="adminlte/plugins/chart.js/Chart.min.js"></script>
-
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="adminlte/dist/js/pages/dashboard2.js"></script>
+{{-- <!-- SweetAlert2 -->
+<script src="adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="adminlte/package/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="adminlte/package/dist/sweetalert2.min.css">
+<!-- Toastr -->
+<script src="adminlte/plugins/toastr/toastr.min.js"></script>
+<!-- page script -->
+<script>
+  $('.notifSwal').click(function() {
+      Swal.fire({
+        icon: $('#notif').attr('swalType'),
+        title: $('#notif').attr('swalTitle'),
+        showConfirmButton: true,
+        timer: 5000
+      })
+    });
+</script> --}}
 </body>
 </html>
