@@ -1,5 +1,7 @@
 @extends('admin/template')
-
+@section('title')
+    Gamifikasi - Dashboard Admin
+@endsection
 @section('content')
 <div class="content-header">
     <div class="container-fluid">

@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gamifikasi</title>
+  <title>
+    @yield('title')
+  </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  {{-- <!-- SweetAlert2 -->
+  <!-- SweetAlert2 -->
   <link rel="stylesheet" href="adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="adminlte/plugins/toastr/toastr.min.css">
@@ -21,7 +27,7 @@
     function clickNotif(){
       document.getElementById('notifSwal').click();
     }
-  </script> --}}
+  </script>
   <style>
     .navbar-white {
       background-color: #a12520;
@@ -37,18 +43,15 @@
   </style>
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
-  {{-- @if(session('success'))
+  @if(session('success'))
 		<div class="alert alert-success" id="notif" swalType="success" swalTitle="{{session('success')}}" style="display: none">{{session('success')}}</div>
-		<script>
-		window.addEventListener("load",clickNotif);
-		</script>	
+		<script>window.addEventListener("load",clickNotif);</script>	
 	@endif
 	@if(session('notif'))
 		<div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{session('notif')}}" style="display: none">{{session('notif')}}</div>
-		<script>
-		window.addEventListener("load",clickNotif);
-		</script>	
-	@endif --}}
+		<script>window.addEventListener("load",clickNotif);</script>	
+	@endif
+  <button type="button" id="notifSwal" class="btn btn-success notifSwal" style="display: none"></button>
 <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Preloader -->
@@ -102,7 +105,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
@@ -131,21 +134,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="{{route('addcourse')}}" class="nav-link">
                   <i class="fas fa-book-open nav-icon"></i>
-                  <p>Materi</p>
+                  <p>Add New Course</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="{{route('coursesList')}}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Quizes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="fas fa-clipboard-list nav-icon"></i>
-                  <p>Assignments</p>
+                  <p>Courses List</p>
                 </a>
               </li>
             </ul>
@@ -195,9 +192,22 @@
 <script src="adminlte/plugins/raphael/raphael.min.js"></script>
 <script src="adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
 <script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="adminlte/plugins/jszip/jszip.min.js"></script>
+<script src="adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- ChartJS -->
 <script src="adminlte/plugins/chart.js/Chart.min.js"></script>
-{{-- <!-- SweetAlert2 -->
+<!-- SweetAlert2 -->
 <script src="adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src="adminlte/package/dist/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="adminlte/package/dist/sweetalert2.min.css">
@@ -213,6 +223,20 @@
         timer: 5000
       })
     });
-</script> --}}
+
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+
+  $(function () {
+    $("#memberlist").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#memberlist_wrapper .col-md-6:eq(0)');
+  });
+</script>
 </body>
 </html>

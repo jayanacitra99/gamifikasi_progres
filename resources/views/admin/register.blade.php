@@ -1,5 +1,7 @@
 @extends('admin/template')
-
+@section('title')
+    Gamifikasi - Register User
+@endsection
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -15,47 +17,39 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name" value="{{old('name')}}">
                     </div>
                     @error('name')
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> {{ $message}}</h5>
-                    </div>
+                    <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                    <script> window.addEventListener("load",clickNotif);</script>	
                     @enderror
                     <div class="form-group">
                         <label>Role</label>
-                        <select name="role" class="form-control">
+                        <select name="role" class="form-control" value="{{old('role')}}">
                             <option value="ADMIN">ADMIN</option>
                             <option value="PESERTA">MEMBER</option>
                             <option value="INSTRUKTUR">INSTRUKTUR</option>
                         </select>
                     </div>
                     @error('role')
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> {{ $message}}</h5>
-                    </div>
+                    <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                    <script> window.addEventListener("load",clickNotif);</script>
                     @enderror
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter email">
+                        <input type="email" name="email" class="form-control" placeholder="Enter email" value="{{old('email')}}">
                     </div>
                     @error('email')
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> {{ $message}}</h5>
-                    </div>
+                    <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                    <script> window.addEventListener("load",clickNotif);</script>	
                     @enderror
                     <div class="form-group">
                         <label>Password</label>
                         <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}">
                     </div>
                     @error('password')
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> {{ $message}}</h5>
-                    </div>
+                    <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                    <script> window.addEventListener("load",clickNotif);</script>
                     @enderror
                     <div class="form-group">
                         <label>Confirm Password</label>

@@ -18,6 +18,7 @@ Auth::routes();
 Route::group(['middleware'=>'guest'], function(){
     Route::view('/','login');
 });
+Route::get('/login',[App\Http\Controllers\Auth\LoginController::class,'showLogin'])->name('login');
 Route::post('/login',[App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 Route::post('/logout',[App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
@@ -25,6 +26,9 @@ Route::group(['middleware'=>'admin'], function() {
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
     Route::get('/register', [App\Http\Controllers\AdminController::class, 'register'])->name('register');
     Route::post('/register', [App\Http\Controllers\AdminController::class, 'registerNewUser'])->name('register');
+    Route::get('/addcourse', [App\Http\Controllers\AdminController::class, 'addcourse'])->name('addcourse');
+    Route::post('/addNewCourse', [App\Http\Controllers\AdminController::class, 'addNewCourse'])->name('addNewCourse');
+    Route::get('/coursesList', [App\Http\Controllers\AdminController::class, 'coursesList'])->name('coursesList');
 });
 Route::group(['middleware'=>'instruktur'], function() {
     Route::get('/instruktur', [App\Http\Controllers\InstrukturController::class, 'index'])->name('instruktur');    
