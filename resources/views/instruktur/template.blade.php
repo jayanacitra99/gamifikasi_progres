@@ -72,7 +72,7 @@
           <img src="adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Nama Member</a>
+          <a href="#" class="d-block">{{ auth()->user()->name}}</a>
         </div>
       </div>
 
