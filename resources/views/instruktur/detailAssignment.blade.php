@@ -14,7 +14,7 @@
                     min : 0,
                     max : 100
                 }
-            })=>
+            })
             if (grade) {
                 var gradeurl = $(this).attr('gradeurl');
                 window.location.replace(gradeurl+'/'+${grade})
