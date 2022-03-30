@@ -10,24 +10,27 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
-  <link rel="stylesheet" href="adminlte/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/toastr/toastr.min.css">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="text/javascript">
     function clickNotif(){
       document.getElementById('notifSwal').click();
     }
   </script>
+  @yield('head-script')
   <style>
     .navbar-white {
       background-color: #a12520;
@@ -56,7 +59,7 @@
 <div class="wrapper">
     <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="adminlte/dist/img/g.png" alt="Gamifikasi" height="60" width="60">
+    <img class="animation__wobble" src="{{ asset('') }}adminlte/dist/img/g.png" alt="Gamifikasi" height="60" width="60">
     <H1><b>Gamifikasi</b></H1>
   </div>
   <!-- Navbar -->
@@ -87,7 +90,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('') }}adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold">Gamifikasi</span>
       </a>
 
@@ -96,7 +99,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('') }}adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ auth()->user()->name}}</a>
@@ -117,12 +120,27 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('register')}}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Register New Users
+                Users
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('register')}}" class="nav-link">
+                  <i class="nav-icon fas fa-user-plus"></i>
+                  <p>Register New User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('userList')}}" class="nav-link">
+                  <i class="fas fa-user-friends nav-icon"></i>
+                  <p>User List</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -142,7 +160,7 @@
               <li class="nav-item">
                 <a href="{{route('coursesList')}}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Courses List</p>
+                  <p>Course List</p>
                 </a>
               </li>
             </ul>
@@ -178,41 +196,41 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="adminlte/dist/js/adminlte.js"></script>
+<script src="{{ asset('') }}adminlte/dist/js/adminlte.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="adminlte/plugins/raphael/raphael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/raphael/raphael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- DataTables  & Plugins -->
-<script src="adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="adminlte/plugins/jszip/jszip.min.js"></script>
-<script src="adminlte/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="adminlte/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jszip/jszip.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- ChartJS -->
-<script src="adminlte/plugins/chart.js/Chart.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/chart.js/Chart.min.js"></script>
 <!-- SweetAlert2 -->
-<script src="adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="adminlte/package/dist/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="adminlte/package/dist/sweetalert2.min.css">
+<script src="{{ asset('') }}adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{ asset('') }}adminlte/package/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/package/dist/sweetalert2.min.css">
 <!-- Toastr -->
-<script src="adminlte/plugins/toastr/toastr.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/toastr/toastr.min.js"></script>
 <!-- page script -->
 <script>
   $('.notifSwal').click(function() {
@@ -225,10 +243,10 @@
     });
 
   $(function () {
-    $("#example1").DataTable({
+    $("#courseList").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#courseList_wrapper .col-md-6:eq(0)');
   });
 
   $(function () {

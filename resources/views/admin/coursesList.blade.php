@@ -1,6 +1,28 @@
 @extends('admin/template')
 @section('title')
-    Gamifikasi - Courses List
+    Gamifikasi - Course List
+@endsection
+@section('head-script')
+  <script>
+    $(document).ready(function(){
+      $(".buttonDelete").click(function() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var delurl = $(this).attr('delurl');
+            window.location.replace(delurl);
+          }
+        })
+      });
+    });
+  </script>
 @endsection
 @section('content')
 <div class="content-header">
@@ -8,11 +30,11 @@
         <!-- general form elements -->
         <div class="card">
             <div class="card-header" style="background-color: #a12520; color: white">
-                <h3 class="card-title">Add New Course</h3>
+                <h3 class="card-title">Course List</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="courseList" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                         <th>No. </th>
@@ -20,11 +42,13 @@
                         <th>Course Name</th>
                         <th>Instructure</th>
                         <th>Course Members</th>
+                        <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $no = 1 ?>
                     @foreach ($course as $item)
+                      <tr>
                         <td>{{$no++}}</td>
                         <td>{{$item->courseID}}</td>
                         <td>{{$item->courseName}}</td>
@@ -33,7 +57,15 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
                                 Member Details
                             </button>
+                            @section('modal-title')
+                                Member Course {{$item->courseName}}
+                            @endsection
                         </td>
+                        <td>
+                          <a href="{{url('editCourse/'.$item->courseID)}}" class="btn btn-success">Edit</a>
+                          <a delurl="{{url('deleteCourse/'.$item->courseID)}}" class="btn btn-danger buttonDelete">Delete</a>
+                        </td>
+                      </tr>
                     @endforeach
                   </tbody>
                   <tfoot>
@@ -43,6 +75,7 @@
                         <th>Course Name</th>
                         <th>Instructure</th>
                         <th>Course Members</th>
+                        <th>Action</th>
                     </tr>
                   </tfoot>
                 </table>
@@ -52,7 +85,7 @@
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Member Course {{$item->courseName}}</h4>
+                      <h4 class="modal-title">@yield('modal-title')</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
