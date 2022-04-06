@@ -10,7 +10,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('member')}}">Home</a></li>
             <li class="breadcrumb-item active">Leaderboards</li>
             </ol>
         </div><!-- /.col -->
@@ -46,13 +46,25 @@
                     <thead>
                       <tr>
                         <th>Rank</th>
-                        <th>Member ID</th>
                         <th>Name</th>
                         <th>Total Points</th>
                         <th>Level</th>
+                        <th>Badge</th>
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $no=1?>
+                      @foreach ($user as $item)
+                        @if ($item->role == 'PESERTA')
+                          <tr>
+                            <td>{{$no++}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->point}}</td>
+                            <td>{{$item->levels}}</td>
+                            <td>{{$item->badges}}</td>
+                          </tr>
+                        @endif
+                      @endforeach
                     </tbody>
                   </table>
                 </div>

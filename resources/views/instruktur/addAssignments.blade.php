@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @error('files[]')
+                                @error('url')
                                 <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                                 <script> window.addEventListener("load",clickNotif);</script>	
                                 @enderror

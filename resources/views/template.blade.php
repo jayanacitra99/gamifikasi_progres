@@ -3,16 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gamifikasi</title>
+  <title>
+    @yield('title')
+  </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/toastr/toastr.min.css">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    function clickNotif(){
+      document.getElementById('notifSwal').click();
+    }
+  </script>
+  @yield('head-script')
   <style>
     .navbar-white {
       background-color: #a12520;
@@ -28,6 +46,15 @@
   </style>
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
+  @if(session('success'))
+		<div class="alert alert-success" id="notif" swalType="success" swalTitle="{{session('success')}}" style="display: none">{{session('success')}}</div>
+		<script>window.addEventListener("load",clickNotif);</script>	
+	@endif
+	@if(session('notif'))
+		<div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{session('notif')}}" style="display: none">{{session('notif')}}</div>
+		<script>window.addEventListener("load",clickNotif);</script>	
+	@endif
+  <button type="button" id="notifSwal" class="btn btn-success notifSwal" style="display: none"></button>
 <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Preloader -->
@@ -60,7 +87,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{asset('')}}adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold">Gamifikasi</span>
       </a>
 
@@ -69,7 +96,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('')}}adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ auth()->user()->name}}</a>
@@ -82,7 +109,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('member')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -99,27 +126,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
-                  <i class="fas fa-book-open nav-icon"></i>
-                  <p>Materi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="{{route('courseList')}}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Quizes</p>
+                  <p>Course List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="fas fa-clipboard-list nav-icon"></i>
-                  <p>Assignments</p>
+                <a href="{{route('enrollCourse')}}" class="nav-link">
+                  <i class="fab fa-discourse nav-icon"></i>
+                  <p>Enroll Course</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/leaderboards')}}" class="nav-link">
+            <a href="{{ route('leaderboards')}}" class="nav-link">
               <i class="nav-icon fas fa-award"></i>
               <p>
                 Leaderboards
@@ -149,25 +170,52 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="adminlte/dist/js/adminlte.js"></script>
+<script src="{{ asset('') }}adminlte/dist/js/adminlte.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="adminlte/plugins/raphael/raphael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/raphael/raphael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('') }}adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jszip/jszip.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- ChartJS -->
-<script src="adminlte/plugins/chart.js/Chart.min.js"></script>
-
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="adminlte/dist/js/pages/dashboard2.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/chart.js/Chart.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('') }}adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{ asset('') }}adminlte/package/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/package/dist/sweetalert2.min.css">
+<!-- Toastr -->
+<script src="{{ asset('') }}adminlte/plugins/toastr/toastr.min.js"></script>
+@yield('script')
+<!-- page script -->
+<script>
+  $('.notifSwal').click(function() {
+      Swal.fire({
+        icon: $('#notif').attr('swalType'),
+        title: $('#notif').attr('swalTitle'),
+        showConfirmButton: true,
+        timer: 5000
+      })
+    });
+</script>
 </body>
 </html>

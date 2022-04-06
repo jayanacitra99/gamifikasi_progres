@@ -48,6 +48,12 @@ Route::group(['middleware'=>'instruktur'], function() {
 });
 Route::group(['middleware'=>'member'], function() {
     Route::get('/member', [App\Http\Controllers\MemberController::class, 'index'])->name('member');
+    Route::get('/leaderboards', [App\Http\Controllers\MemberController::class, 'leaderboards'])->name('leaderboards');
+    Route::get('/enrollCourse', [App\Http\Controllers\MemberController::class, 'enrollCourse'])->name('enrollCourse');
+    Route::get('/enroll/{courseID}/{memberID}', [App\Http\Controllers\MemberController::class, 'enroll'])->name('enroll');
+    Route::get('/courseList', [App\Http\Controllers\MemberController::class, 'courseList'])->name('courseList');
+    Route::get('/courseDetail/{courseID}/{memberID}', [App\Http\Controllers\MemberController::class, 'courseDetail'])->name('courseDetail');
+    Route::post('/addSubmission/{courseID}/{assignmentID}/{memberID}', [App\Http\Controllers\MemberController::class, 'addSubmission'])->name('addSubmission');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
