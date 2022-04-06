@@ -361,24 +361,6 @@
 <script src="{{ asset('') }}adminlte/plugins/dropzone/min/dropzone.min.js"></script>
 <script>
     $(function () {
-        $("#assignments").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#assignments_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
-        $("#quizzes").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#quizzes_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
-        $("#resources").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#resources_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
         bsCustomFileInput.init();
     });
 </script>

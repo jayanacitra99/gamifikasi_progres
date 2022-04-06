@@ -90,7 +90,7 @@ class MemberController extends Controller
 
         if (Request()->status == 'DONE') {
             $point = $user->point + 500;
-            $level = $point % 1000;
+            $level = floor($point / 1000);
             if ($level <= 5) {
                 $badge = 'BRONZE';
             } else if (($level > 5) && ($level <= 10)) {
@@ -103,7 +103,16 @@ class MemberController extends Controller
             
         } else {
             $point = $user->point - 100;
-            $level = $point % 1000;
+            $level = floor($point / 1000);
+            if ($level <= 5) {
+                $badge = 'BRONZE';
+            } else if (($level > 5) && ($level <= 10)) {
+                $badge = 'SILVER';
+            } else if (($level > 10) && ($level <= 15)) {
+                $badge = 'GOLD';
+            } else if (($level > 15) && ($level <= 20)) {
+                $badge = 'PLATINUM';
+            }
         }
 
         $dataPoint = [
