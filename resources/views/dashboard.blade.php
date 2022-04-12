@@ -34,11 +34,11 @@
   
                 <div class="info-box-content">
                   <span class="info-box-text">Member Experience</span>
-                  <span class="info-box-number">{{auth()->user()->exp}} / 1000</span>
+                  <span class="info-box-number">{{auth()->user()->exp % 1000}} / 1000</span>
   
                   <div class="progress">
                     <?php
-                            $progress = (auth()->user()->exp / 1000) * 100;
+                            $progress = (auth()->user()->exp % 1000) / 10;
                         ?>
                     <div class="progress-bar" style="width: {{$progress}}%"></div>
                   </div>

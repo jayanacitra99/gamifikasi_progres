@@ -71,4 +71,8 @@ class MemberModel extends Model
     public function getAttendanceLog(){
         return DB::table('attendancelog')->get();
     }
+
+    public function getPointLog(){
+        return DB::table('pointlog')->get();
+    }
 }

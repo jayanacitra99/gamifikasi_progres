@@ -1,5 +1,27 @@
 @extends('template')
-
+@section('head-script')
+    <script type="text/javascript">
+      const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      const d = new Date();
+      let day = weekday[d.getDay()];
+      $(document).ready(function(){
+        if (day == 'Saturday' && $("#reward").attr("top4") == true) {
+          Swal.fire({
+                title: 'Congratulation!!',
+                text: "You are rank #"+$("#reward").attr("rank")+" this week!",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Claim Reward'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                var rewardurl = $("#reward").attr('rewardurl');
+                window.location.replace(rewardurl);
+            }
+            })
+        }
+      }); 
+    </script>
+@endsection
 @section('content')
 <!-- Main content -->
 <section class="content-header">
@@ -24,6 +46,35 @@
               @foreach ($user as $item)
                 @if ($item->role == 'PESERTA')
                   <tr>
+                    @if (auth()->user()->id == $item->id)
+                      <?php 
+                        $claim = false;
+                        date_default_timezone_set('Asia/Jakarta');
+                        $today = date('Y-m-d');
+                      ?>
+                      @foreach ($pointlog as $polog)
+                          @if ((auth()->user()->id == $polog->memberID) && (date('Y-m-d', strtotime($polog->timestamp)) == $today) && ($polog->info == 'REWARD'))
+                              <?php $claim = true?>
+                          @endif
+                      @endforeach
+                      @if (!$claim)
+                        <?php $rank = $no?>
+                        <?php $top4 = false?>
+                        @if ($rank <= 4)
+                          <?php $top4 = true?>
+                          @if ($rank == 1)
+                            <?php $reward = 250?>
+                          @elseif ($rank == 2)
+                            <?php $reward = 200?>
+                          @elseif ($rank == 3)
+                            <?php $reward = 150?>
+                          @elseif ($rank == 4)
+                            <?php $reward = 100?>
+                          @endif
+                          <a id="reward" rank="{{$rank}}" top4="{{$top4}}" rewardurl="{{url('claimReward/'.auth()->user()->id.'/'.$reward)}}" style="display: none"></a>
+                        @endif
+                      @endif
+                    @endif
                     <td>#{{$no++}}</td>
                     <td>{{$item->name}}</td>
                     <td>{{$item->point}}</td>
