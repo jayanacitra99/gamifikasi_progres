@@ -43,6 +43,10 @@ class InstrukturModel extends Model
     }
 
     public function gradeAssignment($assLogID,$data){
-        DB::table('assigmentlog')->where('assignmentLogID',$assLogID)->update($data);
+        DB::table('assignmentlog')->where('assignmentLogID',$assLogID)->update($data);
+    }
+
+    public function statusMember($courseMemberID,$data){
+        DB::table('coursemembers')->where('courseMemberID',$courseMemberID)->update($data);
     }
 }

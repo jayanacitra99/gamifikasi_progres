@@ -36,6 +36,7 @@ Route::group(['middleware'=>'admin'], function() {
     Route::get('/editUser/{id}', [App\Http\Controllers\AdminController::class, 'editUser'])->name('editUser');
     Route::post('/editUserData/{id}', [App\Http\Controllers\AdminController::class, 'editUserData'])->name('editUserData');
     Route::get('/deleteUser/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('deleteUser');
+    Route::get('/completeMemberByAdmin/{courseMemberID}', [App\Http\Controllers\AdminController::class, 'completeMemberByAdmin'])->name('completeMemberByAdmin');
 });
 Route::group(['middleware'=>'instruktur'], function() {
     Route::get('/instruktur', [App\Http\Controllers\InstrukturController::class, 'index'])->name('instruktur');  
@@ -45,6 +46,8 @@ Route::group(['middleware'=>'instruktur'], function() {
     Route::post('/addAssignmentData/{id}', [App\Http\Controllers\InstrukturController::class, 'addAssignmentData'])->name('addAssignmentData');    
     Route::get('/detailAssignment/{courseID}/{assignmentID}', [App\Http\Controllers\InstrukturController::class, 'detailAssignment'])->name('detailAssignment');
     Route::get('/gradeAssignment/{assignmentLogID}/{grade}', [App\Http\Controllers\InstrukturController::class, 'gradeAssignment'])->name('gradeAssignment');
+    Route::get('/completeMember/{courseMemberID}', [App\Http\Controllers\InstrukturController::class, 'completeMember'])->name('completeMember');
+    Route::get('/approveMember/{courseMemberID}', [App\Http\Controllers\InstrukturController::class, 'approveMember'])->name('approveMember');
 });
 Route::group(['middleware'=>'member'], function() {
     Route::get('/member', [App\Http\Controllers\MemberController::class, 'index'])->name('member');
@@ -54,6 +57,9 @@ Route::group(['middleware'=>'member'], function() {
     Route::get('/courseList', [App\Http\Controllers\MemberController::class, 'courseList'])->name('courseList');
     Route::get('/courseDetail/{courseID}/{memberID}', [App\Http\Controllers\MemberController::class, 'courseDetail'])->name('courseDetail');
     Route::post('/addSubmission/{courseID}/{assignmentID}/{memberID}', [App\Http\Controllers\MemberController::class, 'addSubmission'])->name('addSubmission');
+    Route::get('/learnMore', [App\Http\Controllers\MemberController::class, 'learnMore'])->name('learnMore');
+    Route::get('/attendCourse/{courseID}/{id}', [App\Http\Controllers\MemberController::class, 'attendCourse'])->name('attendCourse');
 });
-
+Route::get('/updatePhone/{id}/{phoneNumber}', [App\Http\Controllers\HomeController::class, 'updatePhone'])->name('updatePhone');
+Route::post('/updatePhoto/{id}', [App\Http\Controllers\HomeController::class, 'updatePhoto'])->name('updatePhoto');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

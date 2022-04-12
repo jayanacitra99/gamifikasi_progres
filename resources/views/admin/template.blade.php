@@ -29,6 +29,41 @@
     function clickNotif(){
       document.getElementById('notifSwal').click();
     }
+    $(document).ready(function(){
+      $("#phoneNumber").click(function() {
+            Swal.fire({
+                title: 'Grade this Assignment',
+                icon: 'question',
+                input: 'number',
+                inputValidator: (value) => {
+                    if (value.length > 20) {
+                      return 'Phone Number Max 20 Digits'
+                    } else if(value.length < 10){
+                      return 'Phone Number Min 10 Digits'
+                    } else if(!value){
+                      return 'Enter Phone Number'
+                    }
+                },
+                inputAttributes:{
+                    min: 0,
+                    maxLength: 20,
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Grade!',
+                focusConfirm: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var phone = $(this).attr('phone');
+                    window.location.replace(phone+'/'+result.value);
+                }
+            })
+        });
+      $("button[data-dismiss=modal2]").click(function () {
+        $('#photo').modal('hide');
+      });
+    });
   </script>
   @yield('head-script')
   <style>
@@ -89,7 +124,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('admin')}}" class="brand-link">
         <img src="{{ asset('') }}adminlte/dist/img/g.png" alt="Gamifikasi Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold">Gamifikasi</span>
       </a>
@@ -99,10 +134,14 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('') }}adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+          @if (auth()->user()->photo == NULL)
+            <img src="{{asset('')}}adminlte/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+          @else
+            <img src="{{asset('profiles/'.auth()->user()->photo)}}" class="img-circle elevation-2" alt="User Image">
+          @endif
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name}}</a>
+          <a data-toggle="modal" data-target="#profile" class="d-block">{{ auth()->user()->name}}</a>
         </div>
       </div>
 
@@ -112,7 +151,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('home')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -184,6 +223,98 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
+    <div class="modal fade" id="profile">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content card bg-light d-flex flex-fill">
+          <div class="modal-header card-header text-muted border-bottom-0">
+            {{ auth()->user()->role}}
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body card-body pt-0">
+            <div class="row">
+              <div class="col-7">
+                <h2 class="lead"><b>{{ auth()->user()->name}}
+                  @if (auth()->user()->badges == 'BRONZE')
+                    <img class="img-circle img-size-32" src="{{asset('')}}adminlte/dist/img/bronze-medal.png" alt="">
+                  @elseif (auth()->user()->badges == 'SILVER')
+                    <img class="img-circle img-size-32" src="{{asset('')}}adminlte/dist/img/silver-medal.png" alt="">
+                  @elseif (auth()->user()->badges == 'GOLD')
+                    <img class="img-circle img-size-32" src="{{asset('')}}adminlte/dist/img/gold-medal.png" alt="">
+                  @elseif (auth()->user()->badges == 'DIAMOND')
+                    <img class="img-circle img-size-32" src="{{asset('')}}adminlte/dist/img/diamond.png" alt="">
+                  @endif
+                </b></h2>
+                <ul class="ml-4 mb-0 fa-ul text-muted">
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email : {{ auth()->user()->email}}</li>
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : {{ auth()->user()->phone}}</li>
+                </ul>
+                <ul class="ml-4 mb-0 fa-ul text-muted row">
+                  <li class="small col"><span class="fa-li"><i class="fas fa-angle-double-up"></i></span> Level {{ auth()->user()->levels}}</li>
+                  <li class="small col"><span class="fa-li"><i class="fas fa-angle-double-up"></i></span> {{ auth()->user()->point}} Points</li>
+                  <li class="small col"><span class="fa-li"><i class="fas fa-angle-double-up"></i></span> {{ auth()->user()->exp}} Exp</li>
+                </ul>
+              </div>
+              <div class="col-5 text-center">
+                @if (auth()->user()->photo == NULL)
+                  <img src="{{asset('')}}adminlte/dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                @else
+                  <img src="{{asset('profiles/'.auth()->user()->photo)}}" alt="user-avatar" class="img-circle img-fluid">
+                @endif
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer text-right">
+              <a phone="{{url('updatePhone/'.auth()->user()->id)}}" id="phoneNumber" class="btn btn-sm bg-teal">
+                <i class="fas fa-lg fa-phone"></i> Update Phone Number
+              </a>
+              <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#photo">
+                <i class="fas fa-user"></i> Update Profile Picture
+              </a>
+              
+          </div>
+          <div class="modal fade" id="photo">
+            <div class="modal-dialog">
+              <div class="modal-content bg-info">
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Photo Profile</h4>
+                  <button type="button" class="close" data-dismiss="modal2" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">                    
+                  <form action="{{url('updatePhoto/'.auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                      <label for="customFile">Profile Photo :</label>
+                      <div class="custom-file">
+                        <input type="file" name="photo" accept="image/*" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-outline-light" data-dismiss="modal2">Close</button>
+                  <button type="submit" name="submit" class="btn btn-outline-light">Save changes</button>
+                  </form>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    @error('photo')
+    <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+    <script> window.addEventListener("load",clickNotif);</script>	
+    @enderror
   </div>
   <!-- /.content-wrapper -->
   <!-- Control Sidebar -->
@@ -231,6 +362,8 @@
   <link rel="stylesheet" href="{{ asset('') }}adminlte/package/dist/sweetalert2.min.css">
 <!-- Toastr -->
 <script src="{{ asset('') }}adminlte/plugins/toastr/toastr.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset('') }}adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- page script -->
 <script>
   $('.notifSwal').click(function() {
@@ -241,7 +374,9 @@
         timer: 5000
       })
     });
-
+  $(function () {
+    bsCustomFileInput.init();
+  });
   $(function () {
     $("#courseList").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

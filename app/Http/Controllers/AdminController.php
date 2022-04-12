@@ -66,12 +66,18 @@ class AdminController extends Controller
             'id' => 'required|string|min:6|max:10|unique:courses,courseID',
             'courseName' => 'required|string|max:255|unique:courses,courseName',
             'instruktur' => 'required',
+            'day'       => 'required',
+            'start'     => 'required',
+            'end'     => 'required',
         ]);
 
         $data = [
             'courseID' => Request()->id,
             'courseName' => Request()->courseName,
-            'instrukturID' => Request()->instruktur
+            'instrukturID' => Request()->instruktur,
+            'day'   => Request()->day,
+            'start_time'    => Request()->start,
+            'end_time'    => Request()->end,
         ];
 
         $this->AdminModel->addNewCourse($data);
@@ -161,6 +167,9 @@ class AdminController extends Controller
 
     public function deleteUser($id){
         $user = $this->AdminModel->getUserDataById($id);
+        if($user->photo <> ""){
+            unlink(public_path('profiles').'/'.$user->photo);
+        }
         if($user->role == 'INSTRUKTUR'){
             $course = $this->AdminModel->getCourseData();
             foreach ($course as $instruktur) {
@@ -188,5 +197,15 @@ class AdminController extends Controller
             Request()->session()->flash('success', 'User Deleted!!');
             return redirect()->route('userList');
         }
+    }
+
+    public function completeMemberByAdmin($courseMemberID){
+        $data = [
+            'status' => 'COMPLETE',
+        ];
+
+        $this->AdminModel->statusMember($courseMemberID,$data);
+        Request()->session()->flash('success','Completed!!');
+        return redirect()->back();
     }
 }

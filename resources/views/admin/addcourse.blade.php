@@ -43,6 +43,38 @@
                     <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                     <script> window.addEventListener("load",clickNotif);</script>
                     @enderror
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Day</label>
+                            <select name="day" class="form-control" value="{{old('day')}}">
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                            </select>
+                        </div>
+                        @error('day')
+                        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                        <script> window.addEventListener("load",clickNotif);</script>
+                        @enderror
+                        <div class="form-group col">
+                            <label>Start Time </label>
+                            <input type="time" name="start" class="form-control" value="{{old('start')}}">
+                        </div>
+                        @error('start')
+                        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                        <script> window.addEventListener("load",clickNotif);</script>	
+                        @enderror
+                        <div class="form-group col">
+                            <label>End Time </label>
+                            <input type="time" name="end" class="form-control" value="{{old('end')}}">
+                        </div>
+                        @error('end')
+                        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                        <script> window.addEventListener("load",clickNotif);</script>	
+                        @enderror
+                    </div>
                 </div>
                 <!-- /.card-body -->
 

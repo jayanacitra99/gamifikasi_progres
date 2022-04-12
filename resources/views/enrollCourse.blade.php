@@ -32,10 +32,12 @@
             @if ($row == 0)
             <div class="row">
             @endif
-            <?php $exist=false?>
+            <?php $exist=false; $waiting =false;?>
             @foreach ($coursemember as $check)
                 @if (($check->courseID == $item->courseID) && ($check->memberID == auth()->user()->id) && ($check->status == 'ONGOING'))
                     <?php $exist = true?>
+                @elseif(($check->courseID == $item->courseID) && ($check->memberID == auth()->user()->id) && ($check->status == 'WAITING'))
+                    <?php $waiting = true?>
                 @endif
             @endforeach
             @if (!$exist)
@@ -84,7 +86,11 @@
                         <!-- /.col -->
                         <div class="col-sm-4">
                             <div class="description-block">
-                                <a url="{{url('enroll/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-success enroll"> ENROLL</a>
+                                @if ($waiting)
+                                    <button type="button" class="btn btn-warning" disabled>Waiting Approval</button>
+                                @else
+                                    <a url="{{url('enroll/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-success enroll"> ENROLL</a>
+                                @endif
                             </div>
                             <!-- /.description-block -->
                         </div>

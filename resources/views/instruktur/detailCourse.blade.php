@@ -17,11 +17,15 @@
             </div><!-- /.col -->
         </div><!-- /.row -->
         <!-- general form elements -->
-        <div class="card">
+        <div class="card ">
             <div class="card-header" style="background-color: #a12520; color: white">
                 <div class="row">
                     <div class="col"><h3 class="card-title">Assignments</h3></div>
                     <div class="col"><a href="{{url('addAssignment/'.$course->courseID)}}" class="btn-sm btn-default" style="float: right"><i class="fas fa-plus"></i> Add</a></div>
+                    <div class="card-tools">
+                        <button type="button" class="btn-sm btn-default" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -31,8 +35,8 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
                             <th>Detail</th>
                         </tr>
@@ -44,15 +48,19 @@
                             <tr>
                                 <th>{{$no++}}</th>
                                 <th>{{$item->courseName}}</th>
-                                <th>{{$item->start_date}}</th>
-                                <th>{{$item->end_date}}</th>
+                                <th>{{$item->title.' - '.$item->description}}</th>
+                                <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
                                     @foreach (unserialize($item->files) as $file)
                                         <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
                                     @endforeach
+
+                                    @if ($item->link != NULL)
+                                       <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
+                                    @endif
                                 </th>
                                 <th>
-                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-success">Detail Assignment</a>
+                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-success"><i class="fas fa-user-check"></i> Check</a>
                                 </th>
                             </tr>
                             @endif
@@ -62,8 +70,8 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
                             <th>Detail</th>
                         </tr>
@@ -78,6 +86,10 @@
                 <div class="row">
                     <div class="col"><h3 class="card-title">Quizzes</h3></div>
                     <div class="col"><a href="{{url('addAssignment/'.$course->courseID)}}" class="btn-sm btn-default" style="float: right"><i class="fas fa-plus"></i> Add</a></div>
+                    <div class="card-tools">
+                        <button type="button" class="btn-sm btn-default" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -87,8 +99,8 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
                             <th>Detail</th>
                         </tr>
@@ -100,15 +112,19 @@
                             <tr>
                                 <th>{{$no++}}</th>
                                 <th>{{$item->courseName}}</th>
-                                <th>{{$item->start_date}}</th>
-                                <th>{{$item->end_date}}</th>
+                                <th>{{$item->title.' - '.$item->description}}</th>
+                                <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
                                     @foreach (unserialize($item->files) as $file)
                                         <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
                                     @endforeach
+
+                                    @if ($item->link != NULL)
+                                       <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
+                                    @endif
                                 </th>
                                 <th>
-                                    <a href="" class="btn btn-success">Detail Assignment</a>
+                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-success"><i class="fas fa-user-check"></i> Check</a>
                                 </th>
                             </tr>
                             @endif
@@ -118,8 +134,8 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
                             <th>Detail</th>
                         </tr>
@@ -129,11 +145,15 @@
             <!-- /.card-body -->      
         </div>
         <!-- /.card -->
-        <div class="card">
+        <div class="card ">
             <div class="card-header" style="background-color: #a12520; color: white">
                 <div class="row">
                     <div class="col"><h3 class="card-title">Resources</h3></div>
                     <div class="col"><a href="{{url('addAssignment/'.$course->courseID)}}" class="btn-sm btn-default" style="float: right"><i class="fas fa-plus"></i> Add</a></div>
+                    <div class="card-tools">
+                        <button type="button" class="btn-sm btn-default" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -143,10 +163,9 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
-                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -156,15 +175,16 @@
                             <tr>
                                 <th>{{$no++}}</th>
                                 <th>{{$item->courseName}}</th>
-                                <th>{{$item->start_date}}</th>
-                                <th>{{$item->end_date}}</th>
+                                <th>{{$item->title.' - '.$item->description}}</th>
+                                <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
                                     @foreach (unserialize($item->files) as $file)
                                         <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
                                     @endforeach
-                                </th>
-                                <th>
-                                    <a href="" class="btn btn-success">Detail Assignment</a>
+
+                                    @if ($item->link != NULL)
+                                       <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
+                                    @endif
                                 </th>
                             </tr>
                             @endif
@@ -174,10 +194,9 @@
                         <tr>
                             <th>No. </th>
                             <th>Course</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
                             <th>Files</th>
-                            <th>Detail</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -195,14 +214,12 @@
         "responsive": true, "lengthChange": false, "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#assignments_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
+
         $("#quizzes").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#quizzes_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
+
         $("#resources").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

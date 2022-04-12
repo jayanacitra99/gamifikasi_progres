@@ -89,12 +89,35 @@ class InstrukturController extends Controller
     }
 
     public function gradeAssignment($assLogID,$grade){
+        date_default_timezone_set('Asia/Jakarta');
+        $timestamp = date('Y-m-d H:i:s');
         $data = [
-            'grades' => $grade
+            'grades' => $grade,
+            'updated_at'    => $timestamp
         ];
 
         $this->InstrukturModel->gradeAssignment($assLogID,$data);
         Request()->session()->flash('success','Grading Success!!');
+        return redirect()->back();
+    }
+
+    public function completeMember($courseMemberID){
+        $data = [
+            'status' => 'COMPLETE',
+        ];
+
+        $this->InstrukturModel->statusMember($courseMemberID,$data);
+        Request()->session()->flash('success','Completed!!');
+        return redirect()->back();
+    }
+
+    public function approveMember($courseMemberID){
+        $data = [
+            'status' => 'ONGOING',
+        ];
+
+        $this->InstrukturModel->statusMember($courseMemberID,$data);
+        Request()->session()->flash('success','Approved!!');
         return redirect()->back();
     }
 }

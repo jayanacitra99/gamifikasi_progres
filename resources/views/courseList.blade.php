@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                        <div class="col-sm-4 border-right">
+                        <div class="col-sm-3 border-right">
                             <div class="description-block">
                                 <?php $totalmember=0?>
                                 @foreach ($coursemember as $data)
@@ -66,7 +66,7 @@
                             <!-- /.description-block -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4 border-right">
+                        <div class="col-sm-3 border-right">
                             <div class="description-block">
                                 <?php $currentmember=0?>
                                 @foreach ($coursemember as $data)
@@ -82,9 +82,34 @@
                             <!-- /.description-block -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4">
+                        <div class="col-sm-3 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">{{$item->day}}</h5>
+                            <span class="description-text">{{ date('H:i', strtotime($item->start_time)).' - '.date('H:i', strtotime($item->end_time))}}</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-3">
                             <div class="description-block">
                                 <a href="{{url('courseDetail/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-success"><i class="far fa-folder-open"></i> Open</a>
+                                <?php
+                                    date_default_timezone_set('Asia/Jakarta');
+                                    $day = date('l');
+                                    $time = date('H:i');
+                                    $checkedin = false;
+                                    $today = date('Y-m-d');
+                                ?>
+                                @foreach ($attend as $update)
+                                    @if (date('Y-m-d', strtotime($update->timestamp)) == $today)
+                                        <?php $checkedin = true;?>
+                                    @endif
+                                @endforeach
+                                @if (($item->day == $day) && (strtotime($time) >= strtotime($item->start_time)) && (strtotime($time) <= strtotime($item->end_time)) && (!$checkedin))
+                                    <a href="{{url('attendCourse/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-info mt-1">Check-In</a>
+                                @else
+                                    <button type="button" class="btn btn-info mt-1" disabled>Check-In</button>
+                                @endif
                             </div>
                             <!-- /.description-block -->
                         </div>

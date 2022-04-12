@@ -76,4 +76,8 @@ class AdminModel extends Model
     public function deleteUser($id){
         DB::table('users')->where('id',$id)->delete();
     }
+
+    public function statusMember($courseMemberID,$data){
+        DB::table('coursemembers')->where('courseMemberID',$courseMemberID)->update($data);
+    }
 }

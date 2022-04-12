@@ -59,4 +59,16 @@ class MemberModel extends Model
                 ->orderBy('point','DESC')
                 ->get();
     }
+
+    public function pointLog($pointLog){
+        DB::table('pointlog')->insert($pointLog);
+    }
+
+    public function attendanceLog($dataAttend){
+        DB::table('attendancelog')->insert($dataAttend);
+    } 
+
+    public function getAttendanceLog(){
+        return DB::table('attendancelog')->get();
+    }
 }
