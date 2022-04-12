@@ -105,8 +105,8 @@
                                         <?php $checkedin = true;?>
                                     @endif
                                 @endforeach
-                                @if (($item->day == $day) && (strtotime($time) >= strtotime($item->start_time)) && (strtotime($time) <= strtotime($item->end_time)) && (!$checkedin))
-                                    <a href="{{url('attendCourse/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-info mt-1">Check-In</a>
+                                @if (($item->day == $day) && (strtotime($time) >= strtotime($item->start_time)) && (!$checkedin))
+                                    <a href="{{url('attendCourse/'.$item->courseID.'/'.auth()->user()->id).'/'.strtotime($time) > strtotime($item->end_time)}}" class="btn btn-info mt-1">Check-In</a>
                                 @else
                                     <button type="button" class="btn btn-info mt-1" disabled>Check-In</button>
                                 @endif

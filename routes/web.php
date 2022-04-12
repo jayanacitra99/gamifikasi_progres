@@ -58,7 +58,7 @@ Route::group(['middleware'=>'member'], function() {
     Route::get('/courseDetail/{courseID}/{memberID}', [App\Http\Controllers\MemberController::class, 'courseDetail'])->name('courseDetail');
     Route::post('/addSubmission/{courseID}/{assignmentID}/{memberID}', [App\Http\Controllers\MemberController::class, 'addSubmission'])->name('addSubmission');
     Route::get('/learnMore', [App\Http\Controllers\MemberController::class, 'learnMore'])->name('learnMore');
-    Route::get('/attendCourse/{courseID}/{id}', [App\Http\Controllers\MemberController::class, 'attendCourse'])->name('attendCourse');
+    Route::get('/attendCourse/{courseID}/{id}/{late}', [App\Http\Controllers\MemberController::class, 'attendCourse'])->name('attendCourse');
 });
 Route::get('/updatePhone/{id}/{phoneNumber}', [App\Http\Controllers\HomeController::class, 'updatePhone'])->name('updatePhone');
 Route::post('/updatePhoto/{id}', [App\Http\Controllers\HomeController::class, 'updatePhoto'])->name('updatePhoto');

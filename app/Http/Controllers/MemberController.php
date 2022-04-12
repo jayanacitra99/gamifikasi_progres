@@ -153,12 +153,16 @@ class MemberController extends Controller
         return view('learnMore');
     }
 
-    public function attendCourse($courseID,$memberID){
+    public function attendCourse($courseID,$memberID,$late){
         date_default_timezone_set('Asia/Jakarta');
         $timestamp = date('Y-m-d H:i:s');
         $user = $this->MemberModel->getUserDataByID($memberID);
 
-        $point = 200;
+        if ($late == true) {
+            $point = -100;
+        } else {
+            $point = 500;
+        }
         $totalpoint = $user->point + $point;
         $exp = 200;
         $totalexp = $user->exp + $exp;
