@@ -204,15 +204,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('/leaderboards')}}" class="nav-link">
-              <i class="nav-icon fas fa-award"></i>
-              <p>
-                Leaderboards
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

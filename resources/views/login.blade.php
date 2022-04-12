@@ -8,11 +8,20 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/dist/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('') }}adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    function clickNotif(){
+      document.getElementById('notifSwal').click();
+    }
+  </script>
   <style>
       body {
         background-image: url(adminlte/dist/img/bgcontentcollege.jpg); 
@@ -36,6 +45,15 @@
   </style>
 </head>
 <body class="hold-transition sidebar-mini ">
+  @if(session('success'))
+		<div class="alert alert-success" id="notif" swalType="success" swalTitle="{{session('success')}}" style="display: none">{{session('success')}}</div>
+		<script>window.addEventListener("load",clickNotif);</script>	
+	@endif
+	@if(session('notif'))
+		<div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{session('notif')}}" style="display: none">{{session('notif')}}</div>
+		<script>window.addEventListener("load",clickNotif);</script>	
+	@endif
+  <button type="button" id="notifSwal" class="btn btn-success notifSwal" style="display: none"></button>
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -72,18 +90,12 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         @error('password')
-          <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
-            {{ $message }}
-          </div>
+        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+        <script> window.addEventListener("load",clickNotif);</script>	
         @enderror
         @error('email')
-        <div class="alert alert-warning alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
-          {{ $message }}
-        </div>
+        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+        <script> window.addEventListener("load",clickNotif);</script>	
         @enderror
       </nav>
       <!-- /.sidebar-menu -->
@@ -127,21 +139,36 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="adminlte/dist/js/adminlte.js"></script>
+<script src="{{ asset('') }}adminlte/dist/js/adminlte.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="adminlte/plugins/raphael/raphael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/raphael/raphael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
-<script src="adminlte/plugins/chart.js/Chart.min.js"></script>
+<script src="{{ asset('') }}adminlte/plugins/chart.js/Chart.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('') }}adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{ asset('') }}adminlte/package/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="{{ asset('') }}adminlte/package/dist/sweetalert2.min.css">
+<!-- page script -->
+<script>
+  $('.notifSwal').click(function() {
+      Swal.fire({
+        icon: $('#notif').attr('swalType'),
+        title: $('#notif').attr('swalTitle'),
+        showConfirmButton: true,
+        timer: 5000
+      })
+    });
+</script>
 </body>
 </html>

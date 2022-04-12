@@ -169,61 +169,6 @@
               </p>
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Users
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('register')}}" class="nav-link">
-                  <i class="nav-icon fas fa-user-plus"></i>
-                  <p>Register New User</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('userList')}}" class="nav-link">
-                  <i class="fas fa-user-friends nav-icon"></i>
-                  <p>User List</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Courses
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('addcourse')}}" class="nav-link">
-                  <i class="fas fa-book-open nav-icon"></i>
-                  <p>Add New Course</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('coursesList')}}" class="nav-link">
-                  <i class="fas fa-list nav-icon"></i>
-                  <p>Course List</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/leaderboards')}}" class="nav-link">
-              <i class="nav-icon fas fa-award"></i>
-              <p>
-                Leaderboards
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
