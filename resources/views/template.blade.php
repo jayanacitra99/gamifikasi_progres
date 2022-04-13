@@ -34,7 +34,7 @@
     $(document).ready(function(){
       $("#phoneNumber").click(function() {
             Swal.fire({
-                title: 'Grade this Assignment',
+                title: 'Input Phone Number',
                 icon: 'question',
                 input: 'number',
                 inputValidator: (value) => {
@@ -207,7 +207,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
-    <div class="modal fade" id="profile">
+      <div class="modal fade" id="profile">
       <div class="modal-dialog modal-lg">
         <div class="modal-content card bg-light d-flex flex-fill">
           <div class="modal-header card-header text-muted border-bottom-0">
