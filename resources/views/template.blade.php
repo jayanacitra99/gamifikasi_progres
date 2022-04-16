@@ -53,7 +53,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Grade!',
+                confirmButtonText: 'Submit!',
                 focusConfirm: false,
             }).then((result) => {
                 if (result.isConfirmed) {

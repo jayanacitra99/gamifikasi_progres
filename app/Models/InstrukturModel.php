@@ -49,4 +49,16 @@ class InstrukturModel extends Model
     public function statusMember($courseMemberID,$data){
         DB::table('coursemembers')->where('courseMemberID',$courseMemberID)->update($data);
     }
+
+    public function getAssignmentDataByID($assignmentID){
+        return DB::table('assignments')->where('assignmentID', $assignmentID)->first();
+    }
+
+    public function editAssignmentData($assignmentID,$data){
+        DB::table('assignments')->where('assignmentID',$assignmentID)->update($data);
+    }
+
+    public function deleteAssignment($assignmentID){
+        DB::table('assignments')->where('assignmentID',$assignmentID)->delete();
+    }
 }

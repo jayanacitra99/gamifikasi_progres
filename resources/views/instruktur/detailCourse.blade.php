@@ -2,6 +2,28 @@
 @section('title')
     Gamifikasi - Detail Course
 @endsection
+@section('head-script')
+<script>
+    $(document).ready(function(){
+      $(".buttonDelete").click(function() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var delurl = $(this).attr('delurl');
+            window.location.replace(delurl);
+          }
+        })
+      });
+    });
+  </script>
+@endsection
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -38,6 +60,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th>Exp / Point</th>
                             <th>Detail</th>
                         </tr>
                     </thead>
@@ -51,16 +74,23 @@
                                 <th>{{$item->title.' - '.$item->description}}</th>
                                 <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
-                                    @foreach (unserialize($item->files) as $file)
-                                        <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                    @endforeach
+                                    @if ($item->files != NULL)
+                                        @foreach (unserialize($item->files) as $file)
+                                            <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                        @endforeach
+                                    @else
+                                        - NO FILES SUBMITTED -
+                                    @endif
 
                                     @if ($item->link != NULL)
                                        <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
                                     @endif
                                 </th>
+                                <th>{{$item->a_exp.' / '.$item->a_point}}</th>
                                 <th>
-                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-success"><i class="fas fa-user-check"></i> Check</a>
+                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-block btn-success"><i class="fas fa-user-check"></i> Check</a>
+                                    <a href="{{url('editAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Edit </a>
+                                    <a delurl="{{url('deleteAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-danger buttonDelete">Delete</a>
                                 </th>
                             </tr>
                             @endif
@@ -73,6 +103,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th>Exp / Point</th>
                             <th>Detail</th>
                         </tr>
                     </tfoot>
@@ -102,6 +133,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th>Exp / Point</th>
                             <th>Detail</th>
                         </tr>
                     </thead>
@@ -115,16 +147,23 @@
                                 <th>{{$item->title.' - '.$item->description}}</th>
                                 <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
-                                    @foreach (unserialize($item->files) as $file)
-                                        <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                    @endforeach
+                                    @if ($item->files != NULL)
+                                        @foreach (unserialize($item->files) as $file)
+                                            <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                        @endforeach
+                                    @else
+                                        - NO FILES SUBMITTED -
+                                    @endif
 
                                     @if ($item->link != NULL)
                                        <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
                                     @endif
                                 </th>
+                                <th>{{$item->a_exp.' / '.$item->a_point}}</th>
                                 <th>
-                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-success"><i class="fas fa-user-check"></i> Check</a>
+                                    <a href="{{url('detailAssignment/'.$item->courseID.'/'.$item->assignmentID)}}" class="btn btn-block btn-success"><i class="fas fa-user-check"></i> Check</a>
+                                    <a href="{{url('editAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Edit </a>
+                                    <a delurl="{{url('deleteAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-danger buttonDelete">Delete</a>
                                 </th>
                             </tr>
                             @endif
@@ -137,6 +176,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th>Exp / Point</th>
                             <th>Detail</th>
                         </tr>
                     </tfoot>
@@ -166,6 +206,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -178,13 +219,21 @@
                                 <th>{{$item->title.' - '.$item->description}}</th>
                                 <th>{{date("l d/M/y", strtotime($item->start_date)).' - '.date("l d/M/y", strtotime($item->end_date))}}</th>
                                 <th>
-                                    @foreach (unserialize($item->files) as $file)
-                                        <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                    @endforeach
+                                    @if ($item->files != NULL)
+                                        @foreach (unserialize($item->files) as $file)
+                                            <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                        @endforeach
+                                    @else
+                                        - NO FILES SUBMITTED -
+                                    @endif
 
                                     @if ($item->link != NULL)
                                        <br> Link : <a href="{{$item->link}}"><i class="fas fa-paperclip"></i> {{$item->link}}</a>
                                     @endif
+                                </th>
+                                <th>
+                                    <a href="{{url('editAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Edit </a>
+                                    <a delurl="{{url('deleteAssignment/'.$item->assignmentID)}}" class="btn btn-block btn-danger buttonDelete">Delete</a>
                                 </th>
                             </tr>
                             @endif
@@ -197,6 +246,7 @@
                             <th>Subject</th>
                             <th>Due Date</th>
                             <th>Files</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>

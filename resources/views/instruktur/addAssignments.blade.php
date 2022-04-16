@@ -97,6 +97,24 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-2" id="a_exp">
+                                <label>Exp</label>
+                                <input type="number" min="0"  name="a_exp" class="form-control" placeholder="Enter Exp" value="{{old('a_exp')}}">
+                            </div>
+                            @error('a_exp')
+                            <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                            <script> window.addEventListener("load",clickNotif);</script>	
+                            @enderror
+                            <div class="form-group col-2" id="a_point">
+                                <label>Point</label>
+                                <input type="number" min="0" name="a_point" class="form-control" placeholder="Enter Point" value="{{old('a_point')}}">
+                            </div>
+                            @error('a_point')
+                            <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                            <script> window.addEventListener("load",clickNotif);</script>	
+                            @enderror
+                        </div>
                     </div>
                     <!-- /.card-body -->
     
@@ -118,9 +136,13 @@
             if (x == "MATERI") {
                 document.getElementById("startdate").style.display = 'none';
                 document.getElementById("enddate").style.display = 'none';
+                document.getElementById("a_exp").style.display = 'none';
+                document.getElementById("a_point").style.display = 'none';
             } else {
                 document.getElementById("startdate").style.display = 'block';
-                document.getElementById("enddate").style.display = 'block   ';
+                document.getElementById("enddate").style.display = 'block';
+                document.getElementById("a_exp").style.display = 'block';
+                document.getElementById("a_point").style.display = 'block';
             }
         }
         start.min = new Date().toISOString().split("T")[0];

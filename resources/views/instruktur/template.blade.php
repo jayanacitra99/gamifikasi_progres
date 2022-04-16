@@ -36,7 +36,7 @@
     $(document).ready(function(){
       $("#phoneNumber").click(function() {
             Swal.fire({
-                title: 'Grade this Assignment',
+                title: 'Input Phone Number',
                 icon: 'question',
                 input: 'number',
                 inputValidator: (value) => {
@@ -55,7 +55,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Grade!',
+                confirmButtonText: 'Submit!',
                 focusConfirm: false,
             }).then((result) => {
                 if (result.isConfirmed) {

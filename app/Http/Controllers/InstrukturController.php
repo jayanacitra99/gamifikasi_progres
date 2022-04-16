@@ -55,22 +55,28 @@ class InstrukturController extends Controller
             'type' => 'required',
         ]);
 
-        foreach (Request()->file('files') as $file) {
-            $filename = Request()->type.'_'.pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'_'.time().'.'.$file->extension();
-            $file->move(public_path('assignments'),$filename);
-            $allfiles[] = $filename;
+        if(Request()->file('files') != NULL){
+            foreach (Request()->file('files') as $file) {
+                $filename = Request()->type.'_'.pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'_'.time().'.'.$file->extension();
+                $file->move(public_path('assignments'),$filename);
+                $allfiles[] = $filename;
+            }
+            $inputFile = serialize($allfiles);
+        } else {
+            $inputFile = NULL;
         }
-
 
         $data = [
             'courseID'      => $courseID,
             'title'         => Request()->title,
             'description'   => Request()->desc,
-            'files'         => serialize($allfiles),
+            'files'         => $inputFile,
             'link'          => Request()->url,
             'start_date'    => Request()->start,
             'end_date'      => Request()->end,
-            'types'         => Request()->type
+            'types'         => Request()->type,
+            'a_exp'         => Request()->a_exp,
+            'a_point'       => Request()->a_point,
         ];
 
         $this->InstrukturModel->addAssignmentData($data);
@@ -119,5 +125,54 @@ class InstrukturController extends Controller
         $this->InstrukturModel->statusMember($courseMemberID,$data);
         Request()->session()->flash('success','Approved!!');
         return redirect()->back();
+    }
+
+    public function editAssignment($assignmentID){
+        $data = [
+            'assignment' => $this->InstrukturModel->getAssignmentDataByID($assignmentID),
+        ];
+
+        return view('instruktur/editAssignment', $data);
+    }
+
+    public function editAssignmentData($assignmentID){
+        $assignment = $this->InstrukturModel->getAssignmentDataByID($assignmentID);
+        Request()->validate([
+            'title' => 'required|string|max:255',
+            'desc' => 'required|string',
+        ]);
+
+        // if(Request()->file('files') != NULL){
+        //     foreach (Request()->file('files') as $file) {
+        //         $filename = Request()->type.'_'.pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'_'.time().'.'.$file->extension();
+        //         $file->move(public_path('assignments'),$filename);
+        //         $allfiles[] = $filename;
+        //     }
+        //     $inputFile = serialize($allfiles);
+        // } else {
+        //     $inputFile = NULL;
+        // }
+
+        $data = [
+            'title'         => Request()->title,
+            'description'   => Request()->desc,
+            // 'files'         => $inputFile,
+            'link'          => Request()->url,
+            'start_date'    => Request()->start,
+            'end_date'      => Request()->end,
+            'a_exp'         => Request()->a_exp,
+            'a_point'       => Request()->a_point,
+        ];
+
+        $this->InstrukturModel->editAssignmentData($assignmentID,$data);
+        Request()->session()->flash('success','Edit Assignment Success!!');
+        return redirect(url('detailCourse/'.$assignment->courseID));
+    }
+
+    public function deleteAssignment($assignmentID){
+        $assignment = $this->InstrukturModel->getAssignmentDataByID($assignmentID);
+        $this->InstrukturModel->deleteAssignment($assignmentID);
+        Request()->session()->flash('success', 'Assignment Deleted!!');
+        return redirect(url('detailCourse/'.$assignment->courseID));
     }
 }

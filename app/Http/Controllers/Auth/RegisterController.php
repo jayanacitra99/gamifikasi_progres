@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminModel;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -38,6 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        $this->AdminModel = new AdminModel();
         $this->middleware('guest');
     }
 
@@ -69,5 +71,37 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function registrationForm(){
+        return view('register');
+    }
+
+    public function registerUser(){
+        date_default_timezone_set('Asia/Jakarta');
+        $timestamp = date('Y-m-d H:i:s');
+
+        Request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $data = [
+            'name' => Request()->name,
+            'role' => 'PESERTA',
+            'email' => Request()->email,
+            'password' => bcrypt(Request()->password),
+            'badges' => 'BRONZE',
+            'levels' => 0,
+            'point' => 0,
+            'created_at' => $timestamp,
+            'updated_at' => $timestamp
+
+        ];
+
+        $this->AdminModel->addNewUser($data);
+        Request()->session()->flash('success','Register Success!!');
+        return redirect()->route('login');
     }
 }

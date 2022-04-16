@@ -66,5 +66,4 @@ class HomeController extends Controller
         Request()->session()->flash('success','Photo Profile Updated!!');
         return redirect()->back();
     }
-    
 }

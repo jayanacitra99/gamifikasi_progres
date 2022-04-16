@@ -125,6 +125,9 @@
         </div>
         <!-- /.col -->
       </form>
+        <div>
+          <a href="{{route('registrationForm')}}">Don't Have an Account?</a>
+        </div>
     </div>
     <!-- /.sidebar -->
   </aside>

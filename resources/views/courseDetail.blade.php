@@ -82,9 +82,13 @@
                                                         </div>
                                                         <div>
                                                             Files : <br>
-                                                            @foreach (unserialize($item->files) as $file)
-                                                                <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                                            @endforeach
+                                                            @if ($item->files != NULL)
+                                                                @foreach (unserialize($item->files) as $file)
+                                                                    <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                                                @endforeach
+                                                            @else
+                                                                - NO FILES SUBMITTED -
+                                                            @endif
                                                         </div>
                                                         <div>
                                                             Link : <br>
@@ -172,9 +176,13 @@
                                                         </div>
                                                         <div>
                                                             Files : <br>
-                                                            @foreach (unserialize($item->files) as $file)
-                                                                <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                                            @endforeach
+                                                            @if ($item->files != NULL)
+                                                                @foreach (unserialize($item->files) as $file)
+                                                                    <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                                                @endforeach
+                                                            @else
+                                                                - NO FILES SUBMITTED -
+                                                            @endif
                                                         </div>
                                                         <div>
                                                             Link : <br>
@@ -252,9 +260,13 @@
                                                         </div>
                                                         <div>
                                                             Files : <br>
-                                                            @foreach (unserialize($item->files) as $file)
-                                                                <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
-                                                            @endforeach
+                                                            @if ($item->files != NULL)
+                                                                @foreach (unserialize($item->files) as $file)
+                                                                    <a href="{{ asset('assignments/'.$file) }}" class="btn btn-sm btn-default" download>{{$file}}</a>
+                                                                @endforeach
+                                                            @else
+                                                                - NO FILES SUBMITTED -
+                                                            @endif
                                                         </div>
                                                         <div>
                                                             Link : <br>

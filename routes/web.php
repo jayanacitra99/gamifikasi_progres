@@ -21,6 +21,8 @@ Route::group(['middleware'=>'guest'], function(){
 Route::get('/login',[App\Http\Controllers\Auth\LoginController::class,'showLogin'])->name('login');
 Route::post('/login',[App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 Route::post('/logout',[App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+Route::get('/registrationForm',[App\Http\Controllers\Auth\RegisterController::class,'registrationForm'])->name('registrationForm');
+Route::post('/registerUser',[App\Http\Controllers\Auth\RegisterController::class,'registerUser'])->name('registerUser');
 
 Route::group(['middleware'=>'admin'], function() {
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
@@ -48,6 +50,9 @@ Route::group(['middleware'=>'instruktur'], function() {
     Route::get('/gradeAssignment/{assignmentLogID}/{grade}', [App\Http\Controllers\InstrukturController::class, 'gradeAssignment'])->name('gradeAssignment');
     Route::get('/completeMember/{courseMemberID}', [App\Http\Controllers\InstrukturController::class, 'completeMember'])->name('completeMember');
     Route::get('/approveMember/{courseMemberID}', [App\Http\Controllers\InstrukturController::class, 'approveMember'])->name('approveMember');
+    Route::get('/editAssignment/{assignmentID}', [App\Http\Controllers\InstrukturController::class, 'editAssignment'])->name('editAssignment');
+    Route::post('/editAssignmentData/{assignmentID}', [App\Http\Controllers\InstrukturController::class, 'editAssignmentData'])->name('editAssignment');
+    Route::get('/deleteAssignment/{assignmentID}', [App\Http\Controllers\InstrukturController::class, 'deleteAssignment'])->name('deleteAssignment');
 });
 Route::group(['middleware'=>'member'], function() {
     Route::get('/member', [App\Http\Controllers\MemberController::class, 'index'])->name('member');
