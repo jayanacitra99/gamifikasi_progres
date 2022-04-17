@@ -89,11 +89,12 @@ class MemberController extends Controller
         $this->MemberModel->addSubmission($data);
 
         $user = $this->MemberModel->getUserDataByID($memberID);
+        $assignment = $this->MemberModel->getAssignmentDataByID($assignmentID);
 
         if (Request()->status == 'DONE') {
-            $point = 500;
+            $point = $assignment->a_point;
             $totalpoint = $user->point + $point;
-            $exp = 200;
+            $exp = $assignment->a_exp;
             $totalexp = $user->exp + $exp;
             $level = floor($totalexp / 1000);
             if ($level >= 20) {
@@ -112,7 +113,7 @@ class MemberController extends Controller
         } else {
             $point = -100;
             $totalpoint = $user->point + $point;
-            $exp = 200;
+            $exp = $assignment->a_exp;
             $totalexp = $user->exp + $exp;
             $level = floor($totalexp / 1000);
             if ($level >= 20) {

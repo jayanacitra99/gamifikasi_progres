@@ -33,6 +33,8 @@
                                 <th style="width: 55%">Title</th>
                                 <th style="width: 15%">Start Date</th>
                                 <th style="width: 15%"  >End Date</th>
+                                <th>Exp</th>
+                                <th>Point</th>
                                 <th style="width: 10%">Detail</th>
                               </tr>
                             </thead>
@@ -53,6 +55,8 @@
                                             <td>{{$item->title}}</td>
                                             <td>{{$item->start_date}}</td>
                                             <td>{{$item->end_date}}</td>
+                                            <td>{{$item->a_exp}}</td>
+                                            <td>{{$item->a_point}}</td>
                                             <td>
                                                 <?php 
                                                     date_default_timezone_set('Asia/Jakarta');
@@ -211,6 +215,8 @@
                                 <th style="width: 55%">Title</th>
                                 <th style="width: 15%">Start Date</th>
                                 <th style="width: 15%">End Date</th>
+                                <th>Exp</th>
+                                <th>Point</th>
                                 <th style="width: 10%">Detail</th>
                               </tr>
                             </thead>
@@ -231,6 +237,8 @@
                                             <td>{{$item->title}}</td>
                                             <td>{{$item->start_date}}</td>
                                             <td>{{$item->end_date}}</td>
+                                            <td>{{$item->a_exp}}</td>
+                                            <td>{{$item->a_point}}</td>
                                             <td>
                                                 <?php 
                                                     date_default_timezone_set('Asia/Jakarta');

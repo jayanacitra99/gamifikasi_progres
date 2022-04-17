@@ -75,4 +75,8 @@ class MemberModel extends Model
     public function getPointLog(){
         return DB::table('pointlog')->get();
     }
+
+    public function getAssignmentDataByID($assignmentID){
+        return DB::table('assignments')->where('assignmentID', $assignmentID)->first();
+    }
 }
