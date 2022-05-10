@@ -5,22 +5,22 @@
 @section('head-script')
     <script>
         $(document).ready(function(){
-        $(".enroll").click(function() {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Enroll this course!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                var url = $(this).attr('url');
-                window.location.replace(url);
-            }
-            })
-        });
+            $(".enroll").click(function() {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Enroll this course!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = $(this).attr('url');
+                    window.location.replace(url);
+                }
+                })
+            });
         });
     </script>
 @endsection
