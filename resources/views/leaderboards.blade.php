@@ -5,6 +5,7 @@
       const d = new Date();
       let day = weekday[d.getDay()];
       $(document).ready(function(){
+        if (day == 'Saturday' && $("#reward").attr("top4") == true) {
           Swal.fire({
                 title: 'Congratulation!!',
                 text: "You are rank #"+$("#reward").attr("rank")+" this week!",
@@ -17,6 +18,7 @@
                 window.location.replace(rewardurl);
             }
             })
+        }
       }); 
     </script>
 @endsection
@@ -57,16 +59,20 @@
                       @endforeach
                       @if (!$claim)
                         <?php $rank = $no?>
+                        <?php $top4 = false?>
+                        @if ($rank <= 4)
+                          <?php $top4 = true?>
                           @if ($rank == 1)
                             <?php $reward = 250?>
                           @elseif ($rank == 2)
                             <?php $reward = 200?>
                           @elseif ($rank == 3)
                             <?php $reward = 150?>
-                          @elseif ($rank => 4)
+                          @elseif ($rank == 4)
                             <?php $reward = 100?>
                           @endif
-                          <a id="reward" rank="{{$rank}}" rewardurl="{{url('claimReward/'.auth()->user()->id.'/'.$reward)}}" style="display: none"></a>
+                          <a id="reward" rank="{{$rank}}" top4="{{$top4}}" rewardurl="{{url('claimReward/'.auth()->user()->id.'/'.$reward)}}" style="display: none"></a>
+                        @endif
                       @endif
                     @endif
                     <td>#{{$no++}}</td>
