@@ -106,11 +106,11 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <?php $no = 1 ?>
+                                            <?php $noo = 1 ?>
                                             @foreach ($member as $data)
                                               @if ($data->courseID == $item->courseID)
                                               <tr>
-                                                  <td>{{$no++}}</td>
+                                                  <td>{{$noo++}}</td>
                                                   <td>{{$data->name}}</td>
                                                   <td>{{$data->email}}</td>
                                                   <td>{{$data->status}}</td>

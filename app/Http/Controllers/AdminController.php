@@ -167,15 +167,16 @@ class AdminController extends Controller
 
     public function deleteUser($id){
         $user = $this->AdminModel->getUserDataById($id);
-        if($user->photo <> ""){
-            unlink(public_path('profiles').'/'.$user->photo);
-        }
         if($user->role == 'INSTRUKTUR'){
             $course = $this->AdminModel->getCourseData();
             foreach ($course as $instruktur) {
                 if($instruktur->instrukturID == $id){
                     Request()->session()->flash('notif', 'Instructure Still Have a Course!!');
+                    return redirect()->back();
                 } else {
+                    if($user->photo <> ""){
+                        unlink(public_path('profiles').'/'.$user->photo);
+                    }
                     $this->AdminModel->deleteUser($id);
                     Request()->session()->flash('success', 'User Deleted!!');
                     return redirect()->route('userList');
@@ -186,13 +187,20 @@ class AdminController extends Controller
             foreach ($coursemember as $member) {
                 if($member->memberID == $id){
                     Request()->session()->flash('notif', 'Member Still Have a Course!!');
+                    return redirect()->back();
                 } else {
+                    if($user->photo <> ""){
+                        unlink(public_path('profiles').'/'.$user->photo);
+                    }
                     $this->AdminModel->deleteUser($id);
                     Request()->session()->flash('success', 'User Deleted!!');
                     return redirect()->route('userList');
                 }
             }
         } else {
+            if($user->photo <> ""){
+                unlink(public_path('profiles').'/'.$user->photo);
+            }
             $this->AdminModel->deleteUser($id);
             Request()->session()->flash('success', 'User Deleted!!');
             return redirect()->route('userList');
