@@ -5,6 +5,7 @@
       const d = new Date();
       let day = weekday[d.getDay()];
       $(document).ready(function(){
+        if (day == 'Tuesday') {
           Swal.fire({
                 title: 'Congratulation!!',
                 text: "You are rank #"+$("#reward").attr("rank")+" this week!",
@@ -17,6 +18,7 @@
                 window.location.replace(rewardurl);
             }
             })
+        }
       }); 
     </script>
 @endsection
@@ -63,7 +65,7 @@
                             <?php $reward = 200?>
                           @elseif ($rank == 3)
                             <?php $reward = 150?>
-                          @elseif ($rank => 4)
+                          @elseif ($rank >= 4)
                             <?php $reward = 100?>
                           @endif
                           <a id="reward" rank="{{$rank}}" rewardurl="{{url('claimReward/'.auth()->user()->id.'/'.$reward)}}" style="display: none"></a>
