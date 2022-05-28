@@ -74,6 +74,14 @@
                         <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                         <script> window.addEventListener("load",clickNotif);</script>	
                         @enderror
+                        <div class="form-group col">
+                            <label>Start Date </label>
+                            <input type="date" id="date" name="date" class="form-control" value="{{old('date')}}">
+                        </div>
+                        @error('date')
+                        <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                        <script> window.addEventListener("load",clickNotif);</script>	
+                        @enderror
                     </div>
                 </div>
                 <!-- /.card-body -->
@@ -86,4 +94,9 @@
         <!-- /.card -->
     </div><!-- /.container-fluid -->
 </div>
+@endsection
+@section('script')
+    <script>
+        date.min = new Date().toISOString().split("T")[0];
+    </script>
 @endsection

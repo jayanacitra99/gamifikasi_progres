@@ -101,12 +101,17 @@
                                     $today = date('Y-m-d');
                                 ?>
                                 @foreach ($attend as $update)
-                                    @if (date('Y-m-d', strtotime($update->timestamp)) == $today)
+                                    @if ((date('Y-m-d', strtotime($update->timestamp)) == $today) && ($update->courseID == $item->courseID))
                                         <?php $checkedin = true;?>
                                     @endif
                                 @endforeach
                                 @if (($item->day == $day) && (strtotime($time) >= strtotime($item->start_time)) && (!$checkedin))
-                                    <a href="{{url('attendCourse/'.$item->courseID.'/'.auth()->user()->id).'/'.strtotime($time) > strtotime($item->end_time)}}" class="btn btn-info mt-1">Check-In</a>
+                                    @if (strtotime($time) > strtotime($item->end_time))
+                                        <?php $late = 1 ?>
+                                    @else
+                                        <?php $late = 0 ?>
+                                    @endif
+                                    <a href="{{url('attendCourse/'.$item->courseID.'/'.auth()->user()->id).'/'.$late}}" class="btn btn-info mt-1">Check-In</a>
                                 @else
                                     <button type="button" class="btn btn-info mt-1" disabled>Check-In</button>
                                 @endif

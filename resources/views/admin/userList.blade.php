@@ -21,6 +21,38 @@
           }
         })
       });
+
+      $(".changePass").click(function() {
+        (async () => {
+          const { value: password } = await Swal.fire({
+            title: "Enter password",
+            input: "password",
+            inputLabel: "Password",
+            inputPlaceholder: "Enter your password",
+            inputAttributes: {
+              minlength: 8,
+              autocapitalize: "off",
+              autocorrect: "off"
+            },
+            inputValidator: (value) => {
+              return new Promise((resolve) => {
+                if (value.length >= 8 ) {
+                  resolve()
+                } else {
+                  resolve('Min 8 Char')
+                }
+              })
+            }
+          });
+
+          if (password) {
+            var userid = $(this).attr('userid')
+              window.location.replace('{{url('changePass')}}'+'/'+userid+'/'+password);
+              Swal.fire('Password Changed','','success')
+          }
+        })();
+
+      });
     });
   </script>
 @endsection
@@ -60,6 +92,7 @@
                         <td>{{$item->point}}</td>
                         <td>
                           <a href="{{url('editUser/'.$item->id)}}" class="btn btn-success">Edit</a>
+                          <a class="btn btn-dark changePass" userid="{{$item->id}}">Change Password</a>
                           <a delurl="{{url('deleteUser/'.$item->id)}}" class="btn btn-danger buttonDelete">Delete</a>
                         </td>
                     </tr>

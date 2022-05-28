@@ -39,6 +39,7 @@ Route::group(['middleware'=>'admin'], function() {
     Route::post('/editUserData/{id}', [App\Http\Controllers\AdminController::class, 'editUserData'])->name('editUserData');
     Route::get('/deleteUser/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('deleteUser');
     Route::get('/completeMemberByAdmin/{courseMemberID}', [App\Http\Controllers\AdminController::class, 'completeMemberByAdmin'])->name('completeMemberByAdmin');
+    Route::get('/changePass/{id}/{pass}', [App\Http\Controllers\AdminController::class, 'changePass'])->name('changePass');
 });
 Route::group(['middleware'=>'instruktur'], function() {
     Route::get('/instruktur', [App\Http\Controllers\InstrukturController::class, 'index'])->name('instruktur');  

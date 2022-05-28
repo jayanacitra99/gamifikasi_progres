@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                        <div class="col-sm-4 border-right">
+                        <div class="col-sm-3 border-right">
                             <div class="description-block">
                                 <?php $totalmember=0?>
                                 @foreach ($coursemember as $data)
@@ -68,7 +68,7 @@
                             <!-- /.description-block -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4 border-right">
+                        <div class="col-sm-3 border-right">
                             <div class="description-block">
                                 <?php $currentmember=0?>
                                 @foreach ($coursemember as $data)
@@ -84,10 +84,28 @@
                             <!-- /.description-block -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4">
+                        <div class="col-sm-3 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">{{date('D, d M', strtotime($item->start_date))}}</h5>
+                                <?php
+                                    date_default_timezone_set('Asia/Jakarta');
+                                    $today = date('Y-m-d');
+                                ?>
+                                @if($item->start_date <= $today)
+                                    <span class="description-text">Course Started</span>
+                                @else
+                                    <span class="description-text">Course Starts On</span>
+                                @endif
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-3">
                             <div class="description-block">
                                 @if ($waiting)
                                     <button type="button" class="btn btn-warning" disabled>Waiting Approval</button>
+                                @elseif($item->start_date <= $today)
+                                    <button type="button" class="btn btn-success" disabled>ENROLL</button>
                                 @else
                                     <a url="{{url('enroll/'.$item->courseID.'/'.auth()->user()->id)}}" class="btn btn-success enroll"> ENROLL</a>
                                 @endif

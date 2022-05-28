@@ -382,5 +382,6 @@
     }).buttons().container().appendTo('#memberlist_wrapper .col-md-6:eq(0)');
   });
 </script>
+@yield('script')
 </body>
 </html>

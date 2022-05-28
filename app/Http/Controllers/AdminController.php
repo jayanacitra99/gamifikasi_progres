@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Ui\Presets\React;
 
 class AdminController extends Controller
@@ -69,6 +70,7 @@ class AdminController extends Controller
             'day'       => 'required',
             'start'     => 'required',
             'end'     => 'required',
+            'date'      => 'required',
         ]);
 
         $data = [
@@ -78,6 +80,7 @@ class AdminController extends Controller
             'day'   => Request()->day,
             'start_time'    => Request()->start,
             'end_time'    => Request()->end,
+            'start_date'    => Request()->date,
         ];
 
         $this->AdminModel->addNewCourse($data);
@@ -185,8 +188,8 @@ class AdminController extends Controller
         } else if($user->role == 'PESERTA'){
             $coursemember = $this->AdminModel->getCourseMemberData();
             foreach ($coursemember as $member) {
-                if($member->memberID == $id){
-                    Request()->session()->flash('notif', 'Member Still Have a Course!!');
+                if(($member->memberID == $id) && ($member->status == 'ONGOING')){
+                    Request()->session()->flash('notif', 'Member Still Have an Ongoing Course!!');
                     return redirect()->back();
                 } else {
                     if($user->photo <> ""){
@@ -214,6 +217,16 @@ class AdminController extends Controller
 
         $this->AdminModel->statusMember($courseMemberID,$data);
         Request()->session()->flash('success','Completed!!');
+        return redirect()->back();
+    }
+
+    public function changePass($userid,$pass){
+        $data = [
+            'password' => Hash::make($pass),
+        ];
+
+        $this->AdminModel->editUserData($data,$userid);
+        Request()->session()->flash('success','Change Password Success!!');
         return redirect()->back();
     }
 }
