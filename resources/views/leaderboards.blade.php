@@ -5,8 +5,7 @@
       const d = new Date();
       let day = weekday[d.getDay()];
       $(document).ready(function(){
-        var claim = 0;
-        if ((day == 'Saturday')&&($("#reward").attr("claim") == false)) {
+        if ((day == 'Sunday')&&($("#reward").attr("claim") == false)) {
           Swal.fire({
                 title: 'Congratulation!!',
                 text: "You are rank #"+$("#reward").attr("rank")+" this week!",
